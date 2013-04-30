@@ -46,6 +46,10 @@ To gather change data between revisions 3.1 and 3.2, for instance, do:
 	COMMITS, LINESADDED, LINESDEL, UNIQUEAUTHORS, COMMITFREQ60, LASTCOMMIT
 	</pre></code>
     into a temporary file <b>mldata</b>
+    The format of <b>mldata</b>:
+	<pre><code>
+	FILENAME,COMMITS,LINESADDED,UNIQEAUTHORS,COMMITFREQ60,LASTCOMMIT
+	</pre></code>
 
 5.  Filter <b>mldata</b> to remove instances where values of all 6 features is 0. These files were not changed in between 3.1 and 3.2
 	<pre><code>
@@ -53,4 +57,11 @@ To gather change data between revisions 3.1 and 3.2, for instance, do:
 	</pre></code>
     Output to another file <b>mldata_filtered</b>
 
-6.  
+6.  Now we get the list of in-development bugs for every file. This requires a manual hack (not enough time to write a auto script)
+    In <b>get_bugdata.py</b>, set <b>release_date</b> field to release date of 3.1 release
+    and <b>final_date</b> field to release date of 3.2 release.
+    Run <b>get_bugdata.py</b> and redirect output to a temporary file:
+	<pre><code>
+	python get_bugdata.py > temp
+	</pre></code>
+    The script looks for commits with dates between release dates of 3.1 and 3.2 but might keep running after all such commits have been found. Need to periodically check the temp file (use <code>cat</code>)
