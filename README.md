@@ -10,21 +10,21 @@ To gather change data between revisions 3.1 and 3.2, for instance, do:
     The .txt files will be named in the pattern <commit_SHA.txt>
     The format of the commit files will are follows:
 	<pre><code>
-	AUTHOR <commit.author>
-	DATE <commit.date>
-	FILECOUNT <commit.files.filecount>
+	AUTHOR <i>commit.author</i>
+	DATE <i>commit.date</i>
+	FILECOUNT <i>commit.files.filecount</i>
 	
-	FILENAME <commit.files[0].filename>
-	ADD <commit.lines_added_to_file>
-	DEL <commit.lines_deleted_from_file>
+	FILENAME <i>commit.files[0].filename</i>
+	ADD <i>commit.lines_added_to_file</i>
+	DEL <i>commit.lines_deleted_from_file</i>
 	PATCH 
-	<patch:diff>
+	<i>patch:diff</i>
 
-	FILENAME <commit.files[1].filename>
-	ADD
-	DEL
+	FILENAME <i>commit.files[1].filename</i>
+	ADD <i>commit.lines_added_to_file</i>
+	DEL <i>commit.lines_deleted_from_file</i>
 	PATCH
-	<patch:diff>
+	<i>patch:diff</i>
 
 	...
 	...	
@@ -41,3 +41,16 @@ To gather change data between revisions 3.1 and 3.2, for instance, do:
 		find -L | grep '\/org\.eclipse\.jdt\.core\/' | grep '\.java$' > list3_x.dat
 		</code></pre>
 
+4.  Run <b>generate_alternate.py</b>. This will generate the first 6 features:
+	<pre><code>
+	COMMITS, LINESADDED, LINESDEL, UNIQUEAUTHORS, COMMITFREQ60, LASTCOMMIT
+	</pre></code>
+    into a temporary file <b>mldata</b>
+
+5.  Filter <b>mldata</b> to remove instances where values of all 6 features is 0. These files were not changed in between 3.1 and 3.2
+	<pre><code>
+	cat mldata | grep -v 0,0,0,0,0,0 > mldata_filtered
+	</pre></code>
+    Output to another file <b>mldata_filtered</b>
+
+6.  
