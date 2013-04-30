@@ -82,3 +82,5 @@ To gather change data between revisions 3.1 and 3.2, for instance, do:
 	f1 = open('mldata_filtered', 'r')
 	f2 = open('final_indev_bug_list.dat', 'w')
 	```
+
+8.   
